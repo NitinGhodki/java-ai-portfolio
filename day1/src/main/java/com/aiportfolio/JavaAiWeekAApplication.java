@@ -1,13 +1,13 @@
-package Com.learning.SpringAi;
+package com.aiportfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringAiApplication {
+public class JavaAiWeekAApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringAiApplication.class, args);
+		SpringApplication.run(JavaAiWeekAApplication.class, args);
 	}
 
 }
