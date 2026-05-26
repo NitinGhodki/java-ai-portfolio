@@ -1,8 +1,8 @@
-package com.aiportfolio.controller;
+package com.aiportfolio.day1.controller;
 
-import com.aiportfolio.llm.LLMClient;
-import com.aiportfolio.llm.PromptPatterns;
-import com.aiportfolio.llm.TokenUtils;
+import com.aiportfolio.day1.llm.LLMClient;
+import com.aiportfolio.day1.llm.PromptPatterns;
+import com.aiportfolio.day1.llm.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

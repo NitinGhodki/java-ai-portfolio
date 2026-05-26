@@ -1,4 +1,4 @@
-package com.aiportfolio.llm;
+package com.aiportfolio.day1.llm;
 
 import java.util.Map;
 
