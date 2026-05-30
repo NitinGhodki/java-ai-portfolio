@@ -58,6 +58,13 @@
             <artifactId>spring-ai-transformers-spring-boot-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>net.objecthunter</groupId>
+            <artifactId>exp4j</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+
+
         <!-- Lombok — reduces boilerplate -->
         <dependency>
             <groupId>org.projectlombok</groupId>
