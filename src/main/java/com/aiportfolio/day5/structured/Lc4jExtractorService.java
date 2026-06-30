@@ -1,6 +1,6 @@
 package com.aiportfolio.day5.structured;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
@@ -53,7 +53,7 @@ public class Lc4jExtractorService {
 
     private final Extractor extractor;
 
-    public Lc4jExtractorService(ChatLanguageModel model) {
+    public Lc4jExtractorService(ChatModel model) {
         this.extractor = AiServices.create(Extractor.class, model);
     }
 

@@ -2,7 +2,7 @@ package com.aiportfolio.day4_langchain4j.services;
 
 import com.aiportfolio.day4_langchain4j.tools.AgentTools;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,7 +47,7 @@ public class AiServiceConfig {
 
     // We name this bean explicitly to avoid any conflict with Spring AI
     @Bean(name = "langchain4jChatModel")
-    public ChatLanguageModel langchain4jChatModel() {
+    public ChatModel langchain4jChatModel() {
         return OpenAiChatModel.builder()
                 .apiKey(apiKey)
                 // HuggingFace router requires the /v1 suffix for OpenAI compatibility
@@ -63,7 +63,7 @@ public class AiServiceConfig {
      */
 
     @Bean
-    public BasicChatService basicChatService(ChatLanguageModel model) {
+    public BasicChatService basicChatService(ChatModel model) {
         return AiServices.create(BasicChatService.class, model);
     }
 
@@ -72,9 +72,9 @@ public class AiServiceConfig {
      * Uses AgentTools: calculator, date, word count, currency.
      */
     @Bean
-    public AgentService agentService(ChatLanguageModel model, AgentTools tools) {
+    public AgentService agentService(ChatModel model, AgentTools tools) {
         return AiServices.builder(AgentService.class)
-                .chatLanguageModel(model)
+                .chatModel(model)
                 .tools(tools)
                 .build();
     }
@@ -88,9 +88,9 @@ public class AiServiceConfig {
      *   Equivalent to Python's history[-5:] slice.
      */
     @Bean
-    public ConversationalService conversationalService(ChatLanguageModel model) {
+    public ConversationalService conversationalService(ChatModel model) {
         return AiServices.builder(ConversationalService.class)
-                .chatLanguageModel(model)
+                .chatModel(model)
                 .chatMemoryProvider(memoryId ->
                         MessageWindowChatMemory.withMaxMessages(10)
                 )
@@ -102,9 +102,9 @@ public class AiServiceConfig {
      * Most capable. Use for complex multi-turn agent interactions.
      */
     @Bean
-    public FullAgentService fullAgentService(ChatLanguageModel model, AgentTools tools) {
+    public FullAgentService fullAgentService(ChatModel model, AgentTools tools) {
         return AiServices.builder(FullAgentService.class)
-                .chatLanguageModel(model)
+                .chatModel(model)
                 .tools(tools)
                 .chatMemoryProvider(memoryId ->
                         MessageWindowChatMemory.withMaxMessages(10)

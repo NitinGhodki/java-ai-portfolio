@@ -6,7 +6,7 @@ import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.embedding.onnx.allminilml6v2.AllMiniLmL6V2EmbeddingModel;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
@@ -59,12 +59,12 @@ public class RagService {
      */
     private final EmbeddingModel embeddingModel = new AllMiniLmL6V2EmbeddingModel();
     private final EmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
-    private final ChatLanguageModel chatModel;
+    private final ChatModel chatModel;
 
     // The RAG-enabled chat service — built lazily after documents are ingested
     private RagChatService ragChatService;
 
-    public RagService(ChatLanguageModel chatModel) {
+    public RagService(ChatModel chatModel) {
         this.chatModel = chatModel;
     }
 
@@ -129,7 +129,7 @@ public class RagService {
                 .build();
 
         ragChatService = AiServices.builder(RagChatService.class)
-                .chatLanguageModel(chatModel)
+                .chatModel(chatModel)
                 .contentRetriever(retriever)
                 .chatMemoryProvider(id -> MessageWindowChatMemory.withMaxMessages(10))
                 .build();
