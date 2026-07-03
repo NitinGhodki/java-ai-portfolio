@@ -80,6 +80,31 @@
             <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
         </dependency>
 
+        <!-- Rate limiting -->
+        <dependency>
+            <groupId>com.bucket4j</groupId>
+            <artifactId>bucket4j-core</artifactId>
+            <version>8.10.1</version>
+        </dependency>
+
+        <!-- Caching -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>3.1.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
+        <!-- Spring AI Tika Document Reader Support -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-tika-document-reader</artifactId>
+        </dependency>
+
 <!--        this is for Spring AI -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
@@ -103,6 +128,11 @@
             <version>0.4.8</version>
         </dependency>
 
+        <!-- Text Document Parser Support -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-document-parser-apache-tika</artifactId>
+        </dependency>
 
         <!-- Lombok — reduces boilerplate -->
         <dependency>
