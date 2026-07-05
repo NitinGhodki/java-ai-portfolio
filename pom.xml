@@ -87,6 +87,13 @@
             <version>8.10.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+
+
         <!-- Caching -->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
@@ -97,6 +104,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
+        <!-- For reading images from resources -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
         </dependency>
 
         <!-- Spring AI Tika Document Reader Support -->
