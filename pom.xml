@@ -93,6 +93,11 @@
             <version>2.6.0</version>
         </dependency>
 
+        <!-- Spring AI Ollama starter -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
+        </dependency>
 
         <!-- Caching -->
         <dependency>
