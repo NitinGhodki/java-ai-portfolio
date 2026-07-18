@@ -15,7 +15,6 @@ import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.store.embedding.EmbeddingStore;
-import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -58,14 +57,15 @@ public class RagService {
      * Python sentence-transformers also runs locally, but setup is heavier.
      */
     private final EmbeddingModel embeddingModel = new AllMiniLmL6V2EmbeddingModel();
-    private final EmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
+    private final EmbeddingStore<TextSegment> embeddingStore;
     private final ChatModel chatModel;
 
     // The RAG-enabled chat service — built lazily after documents are ingested
     private RagChatService ragChatService;
 
-    public RagService(ChatModel chatModel) {
+    public RagService(ChatModel chatModel, EmbeddingStore<TextSegment> embeddingStore) {
         this.chatModel = chatModel;
+        this.embeddingStore = embeddingStore;
     }
 
     // ── AiService interface for RAG
