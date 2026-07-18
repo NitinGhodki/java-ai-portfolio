@@ -117,7 +117,7 @@ public class RagPipeline {
         SearchRequest searchRequest = SearchRequest.builder()
                 .query(question)
                 .topK(topK)
-                .similarityThreshold(0.9)
+                .similarityThreshold(0.3)
                 .build();
 
         List<Document> retrievedDocs = vectorStore.similaritySearch(searchRequest);
