@@ -1,7 +1,7 @@
 package com.aiportfolio.java_ai_week_a.day10.rag;
 
-import com.aiportfolio.Day2.rag.DocumentIngestionService;
-import com.aiportfolio.Day2.rag.RagPipeline;
+import com.aiportfolio.week_a.Day2.rag.DocumentIngestionService;
+import com.aiportfolio.week_a.Day2.rag.RagPipeline;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import org.junit.jupiter.api.*;

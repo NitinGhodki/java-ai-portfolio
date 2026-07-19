@@ -1,6 +1,6 @@
 package com.aiportfolio.java_ai_week_a.day10.router;
 
-import com.aiportfolio.day9.router.QueryClassifier;
+import com.aiportfolio.week_b.day9.router.QueryClassifier;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
