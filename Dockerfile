@@ -3,10 +3,16 @@ FROM eclipse-temurin:21-jdk-alpine AS builder
 
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml first (layer caching)
-# If pom.xml doesn't change, dependencies are not re-downloaded
+# Install dos2unix and bash to fix Windows line-ending and execution bugs
+RUN apk add --no-cache dos2unix bash
+
+# Copy Maven wrapper and pom.xml first
 COPY mvnw pom.xml ./
 COPY .mvn .mvn/
+
+# FIX: Convert Windows line endings to Linux and give execute permissions
+RUN dos2unix mvnw && chmod +x mvnw
+
 RUN ./mvnw dependency:go-offline -q
 
 # Copy source and build
@@ -18,23 +24,19 @@ FROM eclipse-temurin:21-jre-alpine AS runtime
 
 WORKDIR /app
 
-# Create non-root user — security best practice
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
-# Copy only the built JAR from builder stage
 COPY --from=builder /app/target/*.jar app.jar
 
-# Expose port
-EXPOSE 8080
+# FIX: Use Railway's dynamic PORT variable instead of hardcoded 8080
+ENV PORT=8080
+EXPOSE ${PORT}
 
-# Health check — Docker monitors this
+# Update healthcheck to respect the dynamic port
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
-    CMD wget -q --spider http://localhost:8080/actuator/health || exit 1
+    CMD wget -q --spider http://localhost:${PORT}/actuator/health || exit 1
 
-# JVM tuning for containers
-# -XX:+UseContainerSupport: JVM respects container memory limits
-# -XX:MaxRAMPercentage=75: use 75% of container RAM for heap
 ENTRYPOINT ["java", \
     "-XX:+UseContainerSupport", \
     "-XX:MaxRAMPercentage=75", \
