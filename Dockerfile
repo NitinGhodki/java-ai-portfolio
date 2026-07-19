@@ -20,11 +20,11 @@ COPY src src/
 RUN ./mvnw package -DskipTests -q
 
 # ── Runtime stage ─────────────────────────────────────────────────────────────
-FROM eclipse-temurin:21-jre-alpine AS runtime
+FROM eclipse-temurin:21-jre-jammy AS runtime
 
 WORKDIR /app
 
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 USER appuser
 
 COPY --from=builder /app/target/*.jar app.jar
