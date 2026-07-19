@@ -35,18 +35,10 @@ public class VectorStoreConfig {
 
     @Bean
     public VectorStore vectorStore(EmbeddingModel embeddingModel, ResourceLoader resourceLoader) {
-
+        // Initialize a clean, empty in-memory store
         var store = SimpleVectorStore.builder(embeddingModel).build();
 
-        File persistFile = new File("vector-store.json");
-        if (persistFile.exists()) {
-            store.load(persistFile);
-            System.out.println("[VectorStore] Loaded existing data from vector-store.json");
-            return store;
-        }
-
-        // If data file doesn't exist, ingest the raw text data for Spring AI
-        System.out.println("[Spring AI] Ingesting knowledge.txt data into Spring AI Vector Store...");
+        System.out.println("[Spring AI] Ingesting knowledge.txt data into memory-only Vector Store...");
         try {
             var resource = resourceLoader.getResource("classpath:knowledge.txt");
             TikaDocumentReader reader = new TikaDocumentReader(resource);
@@ -55,11 +47,12 @@ public class VectorStoreConfig {
             TokenTextSplitter splitter = new TokenTextSplitter();
             List<Document> splitDocs = splitter.apply(documents);
 
+            // Load the embedded text split vectors directly into application RAM
             store.accept(splitDocs);
-            store.save(persistFile);
-            System.out.println("[Spring AI] Saved database snapshot safely to vector-store.json");
+            System.out.println("[Spring AI] Successfully loaded " + splitDocs.size() + " documents into memory!");
         } catch (Exception e) {
-            System.err.println("❌ Failed to initialize Spring AI store: " + e.getMessage());
+            System.err.println("❌ Failed to ingest data into in-memory store: " + e.getMessage());
+            e.printStackTrace(); // Added stack trace to make future log debugging easier
         }
 
         return store;
