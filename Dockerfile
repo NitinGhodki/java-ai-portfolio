@@ -39,6 +39,7 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
 
 ENTRYPOINT ["java", \
     "-XX:+UseContainerSupport", \
-    "-XX:MaxRAMPercentage=75", \
+    "-XX:MaxRAMPercentage=50", \
+    "-XX:NativeMemoryTracking=summary", \
     "-Djava.security.egd=file:/dev/./urandom", \
     "-jar", "app.jar"]
